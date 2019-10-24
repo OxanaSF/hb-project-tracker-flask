@@ -1,6 +1,6 @@
 """A web application for tracking projects, students, and student grades."""
 
-from flask import Flask, request, render_template, redirect,url_for
+from flask import Flask, request, render_template
 
 import hackbright
 
@@ -15,10 +15,14 @@ def get_student():
 
     first, last, github = hackbright.get_student_by_github(github)
 
+    student_grades = hackbright.get_grades_by_github(github)
+
+
     html = render_template("student_info.html",
                            first=first,
                            last=last,
-                           github=github)
+                           github=github, 
+                           student_grades=student_grades)
     return html
 
 @app.route("/student-search")
